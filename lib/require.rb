@@ -1,6 +1,16 @@
-require "math_tutoring_cli_pj/version"
+require 'nokogiri'
+require 'open-uri'
+require 'pry'
+require 'irb'
+require_relative "./math_tutoring_cli_pj/version"
+require_relative './math_tutoring_cli_pj/scraper'
+require_relative './math_tutoring_cli_pj/cli'
+require_relative './math_tutoring_cli_pj/client'
 
-module MathTutoringCliPj
-  class Error < StandardError; end
+ #module MathTutoring
+  # class Error < StandardError; end
   # Your code goes here...
-end
+ #end
+
+#Notes 
+# 1. the require files have to go on top of the require relative files so that they can be used in the different files. 
