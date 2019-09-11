@@ -2,9 +2,11 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 require 'irb'
+require 'json'
 require_relative "./math_tutoring_cli_pj/version"
 require_relative './math_tutoring_cli_pj/scraper'
 require_relative './math_tutoring_cli_pj/cli'
+require_relative './math_tutoring_cli_pj/courses'
 require_relative './math_tutoring_cli_pj/client'
 
  #module MathTutoring
