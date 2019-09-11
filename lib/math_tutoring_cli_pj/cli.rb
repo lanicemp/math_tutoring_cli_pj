@@ -4,7 +4,8 @@ class CLI
         @call = call
     end 
 
-
+#The call method will print the welcome message then direct the user through the list of courses in the course
+#method and bring them to the menu.
 
     def call 
         puts "Welcome to LP Tutoring here's a list of our courses!"
@@ -44,7 +45,7 @@ class CLI
             case input
             when "1"
                 #puts "Pulls Pre-Algebra course "
-                pre_algebra
+                call_course
             when "2"
                 puts "Pulls Algebra 1  course"
             when "3"
@@ -56,15 +57,19 @@ class CLI
                 menu
             end 
         end 
-        puts "next"
-         
+        puts "next"   
     end 
     
-    def pre_algebra
-    #puts "go to pre-algebra site"
-    MathTutoringCliPj::Scraper.scrape.each do |course|
-    binding.pry 
+    def call_course
+        puts "call course "
     end 
-    end 
+    # def pre_algebra
+    # #puts "go to pre-algebra site"
+    # MathTutoringCliPj::Scraper.scrape.each do |courses|
+    #    courses.each do |course, y, z| 
+    # binding.pry 
+    #    end     
+    # end 
+    # end 
 end 
 CLI.new.call
