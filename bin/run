@@ -3,6 +3,7 @@
 
 require_relative '../lib/require'
 #require relative specifices the path. 
-binding.pry
+#binding.pry
 MathTutoringCliPj::CLI.new.call
 MathTutoringCliPj::Scraper.scrape
+MathTutoringCliPj::Course 
