@@ -5,16 +5,19 @@ module MathTutoringCliPj
     
         #  MathTutoringCliPj::Scraper.scrape
         
-        attr_accessor :name, :link 
-        #@@all = []
+        attr_accessor :name, :link , :worksheets
+        @@all = []
 
-        # def initialize#(name, link)
-        #     #  @name = name  
-        #     #  @link = link 
-        #     @@all << self 
-        # end 
+         def initialize(attributes)
+            @name = attributes[:name]  
+            @link = attributes[:link]
+            @worksheets =[] 
+            @@all << self 
+        end 
+
         def self.all 
-            @@all ||= self.pre_algebra
+            @@all 
+            #||= self.pre_algebra
            # binding.pry
         end 
 
@@ -38,20 +41,31 @@ module MathTutoringCliPj
             #end 
             #course worksheet menu 
             def self.pre_algebra
-                MathTutoringCliPj::Scraper.pre_algebra_scrape.collect do |link|
-                    collection = MathTutoringCliPj::Course.new 
-                    collection.topic = page.css(".TopicBox").css("span").text.split(" ")
-                     #collection.name = link.css("a").text
-                     collection
-                end 
+                MathTutoringCliPj::Scraper.pre_algebra_scrape_all
+                # .collect do |link|
+                #     collection = MathTutoringCliPj::Course.new 
+                #     collection.topic = page.css(".TopicBox").css("span").text.split(" ")
+                #      #collection.name = link.css("a").text
+                #      collection
+                # end 
+            end 
+            def self.pre_algebra_topic
+                puts "going to scrape the topics"
+                MathTutoringCliPj::Scraper.pre_algebra_topics_scrape   
             end 
             
         # def self.all 
         #     @@all
         # end 
 #
-        # def algebra_1
-
+        def algebra_1
+        MathTutoringCliPj::Scraper.algebra1_scrape.collect do |link|
+            collection = MathTutoringCliPj::Course.new 
+            collection.topic = page.css(".TopicBox").css("span").text.split(" ")
+             #collection.name = link.css("a").text
+             collection
+            end 
+        end 
         #     course_worksheet_menu
         # end 
         
