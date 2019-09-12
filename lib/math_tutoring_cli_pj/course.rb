@@ -5,13 +5,13 @@ module MathTutoringCliPj
     
         #  MathTutoringCliPj::Scraper.scrape
         
-        attr_accessor :name, :link , :worksheets
+        attr_accessor :course_name, :course_link, :topics
         @@all = []
 
          def initialize(attributes)
-            @name = attributes[:name]  
-            @link = attributes[:link]
-            @worksheets =[] 
+            @course_name = attributes[:name]  
+            @course_link = attributes[:link]
+            @topics =[] 
             @@all << self 
         end 
 
@@ -40,8 +40,8 @@ module MathTutoringCliPj
                 #end     
             #end 
             #course worksheet menu 
-            def self.pre_algebra
-                MathTutoringCliPj::Scraper.pre_algebra_scrape_all
+            def self.topics
+                MathTutoringCliPj::Scraper.scrape_course_page
                 # .collect do |link|
                 #     collection = MathTutoringCliPj::Course.new 
                 #     collection.topic = page.css(".TopicBox").css("span").text.split(" ")
