@@ -23,30 +23,48 @@ module MathTutoringCliPj
         end
 
         def self.scrape_course_page(course_object)
-            site = "https://www.kutasoftware.com/#{course_object.link}"
+            site = "https://www.kutasoftware.com/#{course_object.course_link}"
+            #the course_object.course_link is an object of the course class and
+            # I can use this format when need to call on an attribute of an object.
             
             page = Nokogiri::HTML(open(site))
-            page.css("div.topicbox").each do |li|
-                #binding.pry
-                topics=   li.css(".TopicBox")[1..3].css("span").each do |box|
-                    binding.pry
-                worksheet_links = li.css(".TopicBox")[0].css("a").attr("href").value
-                worksheet_names = li.css(".TopicBox")[0].css("a").text.split(" ")
-                binding.pry
-                end
-                Course.new({name: topics, links: worksheet_links, worksheet_name: worksheet_names})
-                #binding.pry 
+            page.css("div.TopicBox").each do |box|
+                hash = {
+                    topics: box.css("span").text,
+                    links: []
+                }
+                box.css("a").each do |a_tag|  
+                    worksheet_hash ={
+                    worksheet_link: a_tag.attr("href"),
+                    worksheet_name: a_tag.text
+                    }
+                    hash[:links] << worksheet_hash
+                end 
+                course_object.topics << hash 
+               
             end 
+            binding.pry
         end 
-        def self.pre_algebra_topics_scrape
-            topics = {}
-            MathTutoringCliPj::Course.all.each do |topic|
-                binding.pry
-                page = Nokogiri::HTML(open(topic.name)) 
-                topics= page.css(".TopicBox").css("span").text.split(" ")
-                #binding.pry
-            end
-        end 
+
+        # def self.scrape_topics(course_object)
+        #     site = "https://www.kutasoftware.com/#{course_object.link}"
+        #     page = Nokogiri::HTML(open(site))
+        #     page.css("div.topicbox").each do |li|
+        #         #binding.pry
+        #         topics=   li.css(".TopicBox")[1..3].css("span").each do |box|
+        #             binding.pry
+        #         end 
+        #     end 
+        # end    
+        # def self.pre_algebra_topics_scrape
+        #     topics = {}
+        #     MathTutoringCliPj::Course.all.each do |topic|
+        #         binding.pry
+        #         page = Nokogiri::HTML(open(topic.name)) 
+        #         topics= page.css(".TopicBox").css("span").text.split(" ")
+        #         #binding.pry
+        #     end
+        # end 
 
 
         # def self.algebra1_scrape
