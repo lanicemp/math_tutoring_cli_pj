@@ -39,11 +39,10 @@ module MathTutoringCliPj
     
                     #ty out between method
                 if (1..4).include?(input.to_i)
-                    object = MathTutoringCliPj::Course.all[input.to_i - 1]
-                    puts "Welcome to #{object.course_name}! We have many topics for you to choose from! ".colorize(:green)
-                    MathTutoringCliPj::Scraper.scrape_course_page(object)
-                    #topic_list
-                    binding.pry
+                    @selected_course = MathTutoringCliPj::Course.all[input.to_i - 1]
+                    puts "Welcome to #{@selected_course.course_name}! We have many topics for you to choose from! ".colorize(:green)
+                    MathTutoringCliPj::Scraper.scrape_course_page(@selected_course)
+                    topic_list
                 elsif input.downcase == "exit"
                     puts "Thank you for stopping by, try another one of our courses!".colorize(:green)
                       break 
@@ -56,17 +55,13 @@ module MathTutoringCliPj
         end 
 
         def topic_list 
-            MathTutoringCliPj::Course.topics.each do |x|
+            @selected_course.topics.each.with_index(1) do |hash, index|
+                
+            
+                puts "#{index}. #{hash[:topic]}" 
+            
+            end 
             binding.pry
-            MathTutoringCliPj::Scraper.scrape_course_page
-            binding.pry 
-            object = MathTutoringCliPj::Course.all.each do |x|
-                #shortcut to have my index start with one
-                #DOC 
-                binding.pry
-                puts "#{index}. #{object.name}" 
-            end 
-            end 
         end     
 
                 # case input
