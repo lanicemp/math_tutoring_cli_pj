@@ -30,7 +30,7 @@ module MathTutoringCliPj
             page = Nokogiri::HTML(open(site))
             page.css("div.TopicBox").each do |box|
                 hash = {
-                    topics: box.css("span").text,
+                    topic: box.css("span").text,
                     links: []
                 }
                 box.css("a").each do |a_tag|  
@@ -43,7 +43,7 @@ module MathTutoringCliPj
                 course_object.topics << hash 
                
             end 
-            binding.pry
+            #binding.pry
         end 
 
         # def self.scrape_topics(course_object)
