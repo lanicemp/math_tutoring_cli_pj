@@ -61,8 +61,44 @@ module MathTutoringCliPj
                 puts "#{index}. #{hash[:topic]}" 
             
             end 
-            binding.pry
+            #binding.pry
+            topic_menu
         end     
+        def topic_menu
+            input = ""
+            #while input != "exit"
+            puts "Enter the number of the topic you would like to view the worksheets for or type exit:".colorize(:light_blue)
+            while input != "exit"
+                input = gets.chomp
+                #while input != "exit"
+    
+                    #ty out between method
+                if (1..15).include?(input.to_i)
+                     @selected_course = MathTutoringCliPj::Course.all[input.to_i - 1]
+                    # @selected_course.topics.each do |key|
+                    #     key.each do |x,y|
+                    binding.pry
+                    puts "Welcome to #{@selected_course.topic}! We have many topics for you to choose from! ".colorize(:green)
+                    MathTutoringCliPj::Scraper.scrape_course_page(@selected_course)
+                        end
+                    end
+                    worksheet_list 
+                elsif input.downcase == "exit"
+                    puts "Thank you for stopping by, try another one of our courses!".colorize(:green)
+                      break 
+                else
+                    puts "Error invalid option try again".colorize(:red)
+                     menu
+                end 
+            end 
+                puts "Goodbye!! :)".colorize(:light_green)  
+        end 
+
+        def worksheet_list 
+            puts "prints worksheet list"
+        end 
+ 
+        
 
                 # case input
                 # when "1"
