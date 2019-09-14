@@ -56,33 +56,42 @@ module MathTutoringCliPj
 
         def topic_list 
             @selected_course.topics.each.with_index(1) do |hash, index|
-                
-            
+
                 puts "#{index}. #{hash[:topic]}" 
-            
             end 
             #binding.pry
             topic_menu
-        end     
+        end 
+
         def topic_menu
             input = ""
             #while input != "exit"
             puts "Enter the number of the topic you would like to view the worksheets for or type exit:".colorize(:light_blue)
+            #@selected_course.topics.each.with_index(1) do |hash, index|
+             #binding.pry
             while input != "exit"
                 input = gets.chomp
                 #while input != "exit"
     
                     #ty out between method
                 if (1..15).include?(input.to_i)
-                     @selected_course = MathTutoringCliPj::Course.all[input.to_i - 1]
+                    @selected_course = MathTutoringCliPj::Course.all[input.to_i - 1]
+                   @selected_course.topics.each.with_index(1) do |hash, index|
+                   
+                    # binding.pry
+                    # #kuta_topics =
                     # @selected_course.topics.each do |key|
-                    #     key.each do |x,y|
-                    binding.pry
-                    puts "Welcome to #{@selected_course.topic}! We have many topics for you to choose from! ".colorize(:green)
+                         
+                    #     kuta_topics = key 
+                    # #   kuta_topics.each do |x,y|
+
+                    # binding.pry
+                    puts "Welcome to #{hash[:topic]}! We have many worksheets for you to choose from! ".colorize(:green)
+                   end 
                     MathTutoringCliPj::Scraper.scrape_course_page(@selected_course)
-                        end
-                    end
+                    #end 
                     worksheet_list 
+                    
                 elsif input.downcase == "exit"
                     puts "Thank you for stopping by, try another one of our courses!".colorize(:green)
                       break 
@@ -93,16 +102,26 @@ module MathTutoringCliPj
             end 
                 puts "Goodbye!! :)".colorize(:light_green)  
         end 
+     
 
         def worksheet_list 
-            puts "prints worksheet list"
+            #@selected_course.topics.each.with_index(1) do |hash, index|
+                @selected_course.topics.each do |worksheet_hash|
+                    hash.each do |x,y|  
+binding.pry
+                puts "#{index}. #{hash[:topic]}" 
+            puts "Here is a list of our worksheets and their links for your topic.".colorize(:light_blue)
+            puts " Please follow the links provided to practice our worksheets.".colorize(:magenta)
+            puts " With practice comes perfection. :)".colorize(:light_blue)
+                    end 
+            end 
         end 
  
         
 
                 # case input
                 # when "1"
-                #     puts "Welcome to Pre_Algebra! We have many topics for you to choose from! "
+                    # puts "Welcome to Pre_Algebra! We have many topics for you to choose from! "
                 #     pre_algebra_topics
                 #     pre_algebra_menu
                 #     # call_course
