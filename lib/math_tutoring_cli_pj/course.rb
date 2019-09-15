@@ -17,7 +17,7 @@ module MathTutoringCliPj
             @@all 
         end 
 
-            def self.topics
+            def self.topics 
                 MathTutoringCliPj::Scraper.scrape_course_page
             end 
     end 
