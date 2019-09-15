@@ -5,7 +5,7 @@ module MathTutoringCliPj
             #method and bring them to the menu.
 
         def call 
-            puts "Welcome to LP Tutoring here's a list of our courses!".colorize(:green)
+            puts "  Welcome to LP Tutoring here's a list of our courses!".colorize(:green)
             MathTutoringCliPj::Scraper.scrape
             # MathTutoringCliPj::Course.pre_algebra_topic
             courses 
@@ -32,7 +32,7 @@ module MathTutoringCliPj
         def menu
             input = ""
             #while input != "exit"
-            puts "Enter the number of the course you would like to take or type exit:".colorize(:light_blue)
+            puts "  Enter the number of the course you would like to take or type exit:".colorize(:light_blue)
             while input != "exit"
                 input = gets.chomp
                 #while input != "exit"
@@ -40,18 +40,18 @@ module MathTutoringCliPj
                     #ty out between method
                 if (1..4).include?(input.to_i)
                     @selected_course = MathTutoringCliPj::Course.all[input.to_i - 1]
-                    puts "Welcome to #{@selected_course.course_name}! We have many topics for you to choose from! ".colorize(:green)
+                    puts "  Welcome to #{@selected_course.course_name}! We have many topics for you to choose from! ".colorize(:green)
                     MathTutoringCliPj::Scraper.scrape_course_page(@selected_course)
                     topic_list
                 elsif input.downcase == "exit"
-                    puts "Thank you for stopping by, try another one of our courses!".colorize(:green)
+                    puts "  Thank you for stopping by, try another one of our courses!".colorize(:green)
                       break 
                 else
-                    puts "Error invalid option try again".colorize(:red)
+                    puts "  Error invalid option try again".colorize(:red)
                      menu
                 end 
             end 
-                puts "Goodbye!! :)".colorize(:light_green)  
+                puts "  Goodbye!! :)".colorize(:light_green)  
         end 
 
         def topic_list 
@@ -66,7 +66,7 @@ module MathTutoringCliPj
         def topic_menu
             input = ""
             #while input != "exit"
-            puts "Enter the number of the topic you would like to view the worksheets for or type exit:".colorize(:light_blue)
+            puts "  Enter the number of the topic you would like to view the worksheets for or type exit:".colorize(:light_blue)
             #@selected_course.topics.each.with_index(1) do |hash, index|
              #binding.pry
             while input != "exit"
@@ -75,10 +75,12 @@ module MathTutoringCliPj
     
                     #ty out between method
                 if (1..15).include?(input.to_i)
-                    @selected_course = MathTutoringCliPj::Course.all[input.to_i - 1]
-                   @selected_course.topics.each.with_index(1) do |hash, index|
+                    @selected_topic = @selected_course.topics[input.to_i - 1]
+                    #binding.pry
+                    #@selected_course = MathTutoringCliPj::Course.all[input.to_i - 1]
+                   #@selected_course.topics.each.with_index(1) do |hash, index|
                    
-                    # binding.pry
+                     #binding.pry
                     # #kuta_topics =
                     # @selected_course.topics.each do |key|
                          
@@ -86,35 +88,45 @@ module MathTutoringCliPj
                     # #   kuta_topics.each do |x,y|
 
                     # binding.pry
-                    puts "Welcome to #{hash[:topic]}! We have many worksheets for you to choose from! ".colorize(:green)
-                   end 
+                    puts "  Welcome to #{@selected_topic[:topic]}! We have many worksheets for you to choose from! ".colorize(:green)
+                    #puts "Here is a list of our worksheets and their links for your topic.".colorize(:light_blue)
+                    #end 
+                   #binding.pry
                     MathTutoringCliPj::Scraper.scrape_course_page(@selected_course)
                     #end 
                     worksheet_list 
+                    worksheet_message
                     
                 elsif input.downcase == "exit"
-                    puts "Thank you for stopping by, try another one of our courses!".colorize(:green)
+                    puts "  Thank you for stopping by, try another one of our courses!".colorize(:green)
                       break 
                 else
-                    puts "Error invalid option try again".colorize(:red)
+                    puts "  Error invalid option try again".colorize(:red)
                      menu
                 end 
             end 
-                puts "Goodbye!! :)".colorize(:light_green)  
+                puts "  Goodbye!! :)".colorize(:light_green)  
         end 
      
 
         def worksheet_list 
             #@selected_course.topics.each.with_index(1) do |hash, index|
-                @selected_course.topics.each do |worksheet_hash|
-                    hash.each do |x,y|  
-binding.pry
-                puts "#{index}. #{hash[:topic]}" 
-            puts "Here is a list of our worksheets and their links for your topic.".colorize(:light_blue)
-            puts " Please follow the links provided to practice our worksheets.".colorize(:magenta)
-            puts " With practice comes perfection. :)".colorize(:light_blue)
-                    end 
+            
+                @selected_topic[:links].collect.with_index(1)  do |worksheet_hash, index|
+                    #worksheet_hash.each.with_index do |x,y, index|  
+#binding.pry
+                puts " #{index}. worksheet name --> #{worksheet_hash[:worksheet_name]}"
+                puts "    worksheet link --> #{worksheet_hash[:worksheet_link]}"
+                puts " " 
+                #binding.pry
+            
+                    #end 
             end 
+        end 
+        def worksheet_message
+            puts "  Above ^^ is a list of our worksheets and their links for your topic.".colorize(:magenta)
+            puts "  Please copy an paste the link in your browser bar to pull up the associated worksheet".colorize(:magenta)
+            puts "  With practice comes perfection. :)".colorize(:pink)
         end 
  
         
