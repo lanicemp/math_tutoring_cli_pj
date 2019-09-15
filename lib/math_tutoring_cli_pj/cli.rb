@@ -3,6 +3,8 @@ module MathTutoringCliPj
 
         def call 
             puts "  Welcome to LP Tutoring here's a list of our courses!".colorize(:green)
+            puts ""
+            puts "  Enter the number of the course you would like to take.".colorize(:light_blue)
             MathTutoringCliPj::Scraper.scrape
             courses 
             menu  
@@ -16,7 +18,7 @@ module MathTutoringCliPj
 
         def menu
             input = ""
-            puts "  Enter the number of the course you would like to take.".colorize(:light_blue)
+            puts "  Type the number, then press enter.".colorize(:yellow)
             puts ""
             puts "  You may type exit at any time to exit the program.".colorize(:red)
             while input != "exit"
@@ -25,6 +27,8 @@ module MathTutoringCliPj
                 if (1..4).include?(input.to_i)
                     @selected_course = MathTutoringCliPj::Course.all[input.to_i - 1]
                     puts "  Welcome to #{@selected_course.course_name}! We have many topics for you to choose from! ".colorize(:green)
+                    puts ""
+                    puts "  Enter the number of the topic you would like to practice then press enter to view worksheets.".colorize(:light_blue)
                     MathTutoringCliPj::Scraper.scrape_course_page(@selected_course)
                     topic_list
                 elsif input.downcase == "exit"
@@ -48,16 +52,20 @@ module MathTutoringCliPj
 
         def topic_menu
             input = ""
-            puts "  Enter the number of the topic you would like to practice to view worksheets.".colorize(:light_blue)
+            puts "  Type the number, then press enter".colorize(:yellow)
             puts ""
             puts "  You may type exit at any time to exit the program.".colorize(:red)
             
             while input != "exit"
                 input = gets.chomp
                 
-                if (1..15).include?(input.to_i)
+                if (1..@selected_course.topics.size).include?(input.to_i)
                     @selected_topic = @selected_course.topics[input.to_i - 1]
                     puts "  Welcome to #{@selected_topic[:topic]}! We have many worksheets for you to choose from! ".colorize(:green)
+                    puts ""
+                    puts "  Here is a list of our worksheets and their links for the topic, #{@selected_topic[:topic]}.".colorize(:light_blue )
+                    puts "  Please copy and paste the link in your browser navigation bar to pull up the associated worksheet".colorize(:light_blue)
+                    puts ""
                     MathTutoringCliPj::Scraper.scrape_course_page(@selected_course)
             
                     worksheet_list 
@@ -68,7 +76,7 @@ module MathTutoringCliPj
                       break 
                 else
                     puts "  Error invalid option try again".colorize(:red)
-                     menu
+                     topic_menu
                 end 
             end 
                 puts "  Goodbye!! :)".colorize(:light_green)  
@@ -84,11 +92,7 @@ module MathTutoringCliPj
         end 
 
         def worksheet_message
-            
-                puts "  Above ^^ is a list of our worksheets and their links for your topic.".colorize(:light_blue )
-                puts "  Please copy an paste the link in your browser bar to pull up the associated worksheet".colorize(:light_blue)
-                puts ""
-                puts "  With practice comes perfection. :)".colorize(:green)
+                puts "  Copy and paste the worksheet link in your browser navigation bar.".colorize(:yellow)
                 puts ""
                 puts "  You may type exit at any time to exit the program".colorize(:red)
                 input = ""
@@ -96,7 +100,11 @@ module MathTutoringCliPj
                 input = gets.chomp
                 if input.downcase == "exit"
                 puts "  Thank you for stopping by, try another one of our courses!".colorize(:green)
+                puts "  With practice comes perfection. :)".colorize(:green)
                       break 
+                else
+                puts "  Error invalid option try again".colorize(:red)
+                    worksheet_message 
                 end 
             end 
             puts "  Goodbye!! :)".colorize(:green)
