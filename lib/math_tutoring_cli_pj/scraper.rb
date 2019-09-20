@@ -16,21 +16,23 @@ module MathTutoringCliPj
         end
 
         def self.scrape_course_page(course_object)
-            site = "https://www.kutasoftware.com/#{course_object.course_link}"
-            page = Nokogiri::HTML(open(site))
-            page.css("div.TopicBox").each do |box|
-                hash = {
-                    topic: box.css("span").text,
-                    links: []
-                }
-                box.css("a").each do |a_tag|  
-                    worksheet_hash ={
-                    worksheet_link: a_tag.attr("href"),
-                    worksheet_name: a_tag.text
+            if course_object.topics.empty?  
+                site = "https://www.kutasoftware.com/#{course_object.course_link}"
+                page = Nokogiri::HTML(open(site))
+                page.css("div.TopicBox").each do |box|
+                    hash = {
+                        topic: box.css("span").text,
+                        links: []
                     }
-                    hash[:links] << worksheet_hash
-                end 
-                course_object.topics << hash 
+                    box.css("a").each do |a_tag|  
+                        worksheet_hash ={
+                        worksheet_link: a_tag.attr("href"),
+                        worksheet_name: a_tag.text
+                        }
+                        hash[:links] << worksheet_hash
+                    end 
+                    course_object.topics << hash
+                end  
             end 
         end      
     end 
