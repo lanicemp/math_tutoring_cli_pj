@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
-#taught computer how to use ruby with the shabang line on line one. 
+
 
 require_relative '../lib/require'
-#require relative specifices the path. 
-#binding.pry
+
 MathTutoringCliPj::CLI.new.call
-MathTutoringCliPj::Scraper.scrape
-MathTutoringCliPj::Course 
