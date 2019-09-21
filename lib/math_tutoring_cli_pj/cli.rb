@@ -19,9 +19,10 @@ module MathTutoringCliPj
 
         def menu
             input = ""
-            puts "  Type the number, then press enter.".colorize(:yellow)
-            puts ""
-            puts "  You may type exit at any time to exit the program.".colorize(:red)
+            choice 
+            # puts "  Type the number, then press enter.".colorize(:yellow)
+            # puts ""
+            # puts "  You may type exit at any time to exit the program.".colorize(:red)
             while input != "exit"
                 input = gets.chomp
                 
@@ -56,11 +57,12 @@ module MathTutoringCliPj
 
         def topic_menu
             input = ""
-            puts "  Type the number, then press enter".colorize(:yellow)
-            puts ""
+            choice 
+            # puts "  Type the number, then press enter".colorize(:yellow)
+            # puts ""
             puts "  Type course to return to course menu".colorize(:magenta)
             puts ""
-            puts "  You may type exit at any time to exit the program.".colorize(:red)
+            # puts "  You may type exit at any time to exit the program.".colorize(:red)
             
             while input != "exit, course"
                 input = gets.chomp
@@ -95,9 +97,9 @@ module MathTutoringCliPj
         end 
 
         def worksheet_list 
-                @selected_topic[:links].collect.with_index(1)  do |worksheet_hash, index|
+                @selected_topic[:links].each.with_index(1)  do |worksheet_hash, index|
                 puts " #{index}. worksheet name --> #{worksheet_hash[:worksheet_name]}"
-                puts "    worksheet link --> #{worksheet_hash[:worksheet_link]}"
+                puts "    worksheet link --> https:#{worksheet_hash[:worksheet_link]}"
                 puts " "  
             end 
         end 
@@ -138,5 +140,12 @@ module MathTutoringCliPj
             puts "  Goodbye!! :)".colorize(:green)
             exit
         end 
+        def choice 
+            puts "  Type the number, then press enter".colorize(:yellow)
+            puts ""
+            puts "  Type exit at any time to exit the program".colorize(:red)
+        end 
+
+
     end 
 end 
