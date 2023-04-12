@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem 'pry'
-gem 'nokogiri', '1.6'
+gem 'nokogiri', '1.14.3'
 gem 'rspec'
 
 # Specify your gem's dependencies in math_tutoring_cli_pj.gemspec
